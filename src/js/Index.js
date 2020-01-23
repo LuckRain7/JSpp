@@ -1,3 +1,19 @@
-import '../scss/index.scss'
+import { App } from './App.js'
+import { Header } from '../components/Header'
 
-console.log(1);
+class Index extends App {
+  constructor($) {
+    super($, {
+      swiper: true,
+      phone: true,
+      field: true
+    })
+  }
+
+  render() {
+    new Header(this.$app).init()
+    $('body').prepend(this.$app)
+  }
+}
+
+new Index(jQuery)

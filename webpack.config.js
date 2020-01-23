@@ -1,49 +1,49 @@
-const path = require('path');
-const uglify = require('uglifyjs-webpack-plugin');
-const htmlWebpackPlugin = require('html-webpack-plugin');
-const autoprefixer = require('autoprefixer');
+const path = require('path')
+const uglify = require('uglifyjs-webpack-plugin')
+const htmlWebpackPlugin = require('html-webpack-plugin')
+const autoprefixer = require('autoprefixer')
 
 const config = {
   mode: 'production', //production
   entry: {
-  	index: path.resolve(__dirname, './src/js/Index.js'),
+    index: path.resolve(__dirname, './src/js/Index.js'),
     list: path.resolve(__dirname, './src/js/List.js'),
     detail: path.resolve(__dirname, './src/js/Detail.js')
   },
   output: {
-  	path: path.resolve(__dirname + '/dist'),
-  	filename: 'js/[name].js'
+    path: path.resolve(__dirname + '/dist'),
+    filename: 'js/[name].js'
   },
   module: {
-  	rules: [
+    rules: [
       {
-      	test: /\.js$/,
-      	loader: 'babel-loader',
-      	exclude: path.resolve(__dirname, 'node_modules'),
-      	query: {
-      		'presets': ['latest']
-      	}
+        test: /\.js$/,
+        loader: 'babel-loader',
+        exclude: path.resolve(__dirname, 'node_modules'),
+        query: {
+          presets: ['latest']
+        }
       },
 
       {
-      	test: /\.tpl$/,
-      	loader: 'ejs-loader'
+        test: /\.tpl$/,
+        loader: 'ejs-loader'
       },
 
       {
         test: /\.scss$/,
         use: [
-	        'style-loader',
-	        'css-loader',
-	        {
-	        	loader: 'postcss-loader',
-	        	options: {
-	        		plugins: function () {
-	        			return [autoprefixer('last 5 versions')]
-	        		}
-	        	}
-	        },
-	        'sass-loader'
+          'style-loader',
+          'css-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              plugins: function() {
+                return [autoprefixer('last 5 versions')]
+              }
+            }
+          },
+          'sass-loader'
         ]
       },
 
@@ -53,21 +53,27 @@ const config = {
       },
 
       {
-      	test: /\.(png|jpg|jpeg|gif|ico)$/i,
-      	loader: [
+        test: /\.(png|jpg|jpeg|gif|ico)$/i,
+        use: [
           'url-loader?limit=1024&name=img/[name]-[hash:16].[ext]',
-          'image-webpack-loader'
-      	]
+          {
+            loader: 'image-webpack-loader',
+            options: {
+              bypassOnDebug: true, // webpack@1.x
+              disable: true // webpack@2.x and newer
+            }
+          }
+        ]
       }
-  	]
+    ]
   },
 
   plugins: [
     new uglify(),
     new htmlWebpackPlugin({
       minify: {
-      	removeComments: true,
-      	collapseWhitespace: true
+        removeComments: true,
+        collapseWhitespace: true
       },
       filename: 'index.html',
       template: path.resolve(__dirname, 'src/index.html'),
@@ -106,19 +112,13 @@ const config = {
   ],
 
   devServer: {
-  	watchOptions: {
-  		ignored: /node_modules/
-  	},
+    watchOptions: {
+      ignored: /node_modules/
+    },
     open: true,
-  	host: 'localhost',
-  	port: 3333
+    host: 'localhost',
+    port: 3333
   }
-};
+}
 
-module.exports = config;
-
-
-
-
-
-
+module.exports = config
