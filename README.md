@@ -5,7 +5,7 @@
 
 ![webpack依赖1](F:\Rain\JSpp\img\webpack依赖1.png)
 
-数据模型、JSONP数据请求剖析
+企业级『轮播图插件』组件化开发
 
 ```css
 // 清除浮动

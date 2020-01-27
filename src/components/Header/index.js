@@ -19,7 +19,7 @@ class Header {
     this.search = new Search()
   }
 
-  async init() {
+  async init() { 
     await this.render()
     this.bindEvent()
   }
