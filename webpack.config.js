@@ -1,5 +1,5 @@
 const path = require('path')
-const uglify = require('uglifyjs-webpack-plugin')
+// const uglify = require('uglifyjs-webpack-plugin')
 const htmlWebpackPlugin = require('html-webpack-plugin')
 const autoprefixer = require('autoprefixer')
 
@@ -69,7 +69,7 @@ const config = {
   },
 
   plugins: [
-    new uglify(),
+    // new uglify(),
     new htmlWebpackPlugin({
       minify: {
         removeComments: true,
@@ -110,7 +110,6 @@ const config = {
       hash: true
     })
   ],
-
   devServer: {
     watchOptions: {
       ignored: /node_modules/
@@ -118,7 +117,8 @@ const config = {
     open: true,
     host: 'localhost',
     port: 3333
-  }
+  },
+  devtool:'source-map'
 }
 
 module.exports = config
